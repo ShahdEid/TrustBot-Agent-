@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(50%); /* Darkens the video for better readability */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header, .footer {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .interface-box {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .interface-box h2 {
+            color: #333;
+        }
+
+        .btn-primary, .btn-success {
+            background-color: #FF8A80;
+            border: none;
+        }
+
+        .btn-primary:hover, .btn-success:hover {
+            background-color: #E57373;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <video autoplay muted loop class="video-background">
+        <source src="videos/AdobeStock_749033433_Video_4K_Preview.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Project Homepage 🚀</h1>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Interface 1 🎤</h2>
+                    <p>Explore the Voice-Assisted Interface</p>
+                    <a href="user-VA-interface/index.html" class="btn btn-primary">Go to Interface 1</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Interface 2 📦</h2>
+                    <p>Experience the Modal Interface</p>
+                    <a href="modal-interface/index.html" class="btn btn-primary">Go to Interface 2</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Interface 3 🌐</h2>
+                    <p>Engage with the Facebook-like Interface</p>
+                    <a href="interface5/index.html" class="btn btn-primary">Go to Facebook Interface</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Interface 4 📄</h2>
+                    <p>Navigate through the Document List Interface</p>
+                    <a href="ListDocument-interface/index.html" class="btn btn-primary">Go to Doc Interface</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Interface 5 💎</h2>
+                    <p>Discover the Perfect Interface</p>
+                    <a href="TrustInterface/Index.html" class="btn btn-primary">Go to Perfect Interface</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="interface-box">
+                    <h2>Survey 📝</h2>
+                    <p>Help us improve by taking the survey</p>
+                    <a href="https://forms.gle/h1e8CWYQXo2AFtZN7" class="btn btn-success">Take the Survey</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Your Project Name. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

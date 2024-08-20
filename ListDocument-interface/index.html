@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot with Document Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #00838f;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 18px;
+        }
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .messages li {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .messages .user-message {
+            background-color: #e0f7fa;
+            text-align: right;
+        }
+        .messages .bot-message {
+            background-color: #f1f8e9;
+            text-align: left;
+        }
+        .input-box {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #dddddd;
+            flex-direction: column;
+        }
+        .input-box input[type="text"], .input-box input[type="file"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .input-box button {
+            padding: 10px;
+            background-color: #00838f;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-box button:hover {
+            background-color: #006064;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">Chatbot with Document Upload</div>
+        <ul class="messages" id="messages"></ul>
+        <div class="input-box">
+            <input type="file" id="file-input" accept=".txt,.pdf">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const messages = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const fileInput = document.getElementById('file-input');
+
+        function generateSessionId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            const file = fileInput.files[0];
+
+            if (message) {
+                displayMessage(` ${message}`, 'user-message');
+                sendTextMessage(message);
+                userInput.value = '';
+            }
+
+            if (file) {
+                displayMessage(`You uploaded a file: ${file.name}`, 'user-message');
+                uploadFile(file);
+                fileInput.value = ''; // Clear the file input
+            }
+        }
+
+        function sendTextMessage(message) {
+            console.log("Sending message to server:", message);
+            fetch('http://localhost:3000/api/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fulfillmentText) {
+                    displayMessage(` ${data.fulfillmentText}`, 'bot-message');
+                } else {
+                    console.error("Server response does not contain fulfillment text.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                displayMessage(`Error: ${error.message}`, 'bot-message');
+            });
+        }
+
+        function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log("Uploading file:", file.name);
+    fetch('http://localhost:3000/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("File processed:", data);
+        displayMessage(` ${data.message}`, 'bot-message'); //  confirmation
+
+        //if there is extracted text and display it
+        if (data.text) {
+            displayMessage(`Extracted Text: <strong>${data.text}</strong>`, 'bot-message'); // Display extracted text
+            displayMessage(" Document processed. Let me know if you need anything else!", 'bot-message');
+        }
+    })
+    .catch(error => {
+        console.error('Upload error:', error);
+        displayMessage(`Upload error: ${error.message}`, 'bot-message');
+    });
+}
+
+
+function displayMessage(text, className) {
+    const messageLi = document.createElement('li');
+    messageLi.innerHTML = text;  // Use innerHTML to render HTML content
+    messageLi.className = className;
+    messages.appendChild(messageLi);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+        // Listen for Enter key press
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+      <div class="navigation">
+        <a href="../index.html" class="btn btn-secondary">Home</a>
+        <a href="../modal-interface/index.html" class="btn btn-primary">Next: Modal Interface</a>
+    </div> 
+</body>
+</html>

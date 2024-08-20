@@ -1,0 +1,101 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9EAEA; /* Soft warm background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 400px;
+    height: 80vh;
+    background-color: #FFCDD2; /* Soft light pink */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(180deg, #D32F2F, #C62828); /* Gradient header */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds depth */
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    list-style-type: none;
+    background: #FFF5F5; /* Slightly softer background */
+}
+
+/* User message styling */
+.user-message {
+    background-color: #FF8A80; /* Slightly darker pinkish red */
+    color: white;
+    margin-left: auto;
+    text-align: right;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Bot message styling */
+.bot-message {
+    background-color: #FFC1C1; /* Slightly darker light red */
+    color: #5D4037; /* Greyish-brown text for bot messages */
+    margin-right: auto;
+    text-align: left;
+    border-radius: 20px;
+    max-width: 90%; /* Slightly larger bubble */
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input box styling */
+.input-box {
+    display: flex;
+    padding: 10px;
+    border-top: 2px solid #dddddd;
+}
+
+/* Input fields and buttons */
+.input-box input, .input-box button {
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.input-box input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.input-box button {
+    background-color: #D32F2F; /* Darker red for buttons */
+    color: white;
+    width: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.input-box button:hover {
+    background-color: #B71C1C; /* Even darker red on hover */
+}
