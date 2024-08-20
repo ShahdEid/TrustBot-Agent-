@@ -1,0 +1,424 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List-based Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #00838f;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 18px;
+        }
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .messages li {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .messages .user-message {
+            background-color: #e0f7fa;
+            text-align: right;
+        }
+        .messages .bot-message {
+            background-color: #f1f8e9;
+            text-align: left;
+        }
+        .input-box {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #dddddd;
+        }
+        .input-box input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .input-box button {
+            padding: 10px;
+            background-color: #00838f;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-box button:hover {
+            background-color: #006064;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">FAQ Chatbot</div>
+        <ul class="messages" id="messages"></ul>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script>
+        const messages = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+
+        function generateSessionId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
+
+        function sendMessage() {
+            const message = userInput.value;
+            if (message.trim() === '') return;
+
+            // Display user message
+            const userMessageLi = document.createElement('li');
+            userMessageLi.textContent = message;
+            userMessageLi.className = 'user-message';
+            messages.appendChild(userMessageLi);
+
+            // Clear input
+            userInput.value = '';
+
+            // Send message to Dialogflow
+            console.log("Sending message to Dialogflow:", message);
+            sendToDialogflow(message);
+        }
+
+        function sendToDialogflow(message) {
+            fetch('http://localhost:3000/api/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fulfillmentText) {
+                    const botMessage = data.fulfillmentText;
+                    const botMessageLi = document.createElement('li');
+                    botMessageLi.textContent = botMessage;
+                    botMessageLi.className = 'bot-message';
+                    messages.appendChild(botMessageLi);
+
+                    // Scroll to bottom
+                    messages.scrollTop = messages.scrollHeight;
+                } else {
+                    console.error("Dialogflow response does not contain fulfillment text.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+        // Assuming you are using fetch to send the user input to the server
+fetch('http://localhost:3000/api/message', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message: userMessage }) // Assuming `userMessage` is the user's input
+})
+.then(response => response.json())
+.then(data => {
+    if (data.fulfillmentText) {
+        displayMessage(data.fulfillmentText);
+    } else {
+        console.error('Dialogflow response does not contain fulfillment text.');
+    }
+})
+.catch(error => console.error('Error:', error));
+
+// Function to display the message in the chat interface
+function displayMessage(message) {
+    const chatContainer = document.querySelector('.chat-container');
+    const messageElement = document.createElement('div');
+    messageElement.className = 'bot-message'; // You might want to style this class in your CSS
+    messageElement.textContent = message;
+    chatContainer.appendChild(messageElement);
+}
+
+
+        // Listen for Enter key press
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List-based Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #00838f;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 18px;
+        }
+        .messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .messages li {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .messages .user-message {
+            background-color: #e0f7fa;
+            text-align: right;
+        }
+        .messages .bot-message {
+            background-color: #f1f8e9;
+            text-align: left;
+        }
+        .input-box {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #dddddd;
+        }
+        .input-box input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .input-box button {
+            padding: 10px;
+            background-color: #00838f;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-box button:hover {
+            background-color: #006064;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">FAQ Chatbot</div>
+        <ul class="messages" id="messages"></ul>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <!-- <script>
+        const messages = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+
+        function generateSessionId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
+
+        function sendMessage() {
+            const message = userInput.value;
+            if (message.trim() === '') return;
+
+            // Display user message
+            const userMessageLi = document.createElement('li');
+            userMessageLi.textContent = message;
+            userMessageLi.className = 'user-message';
+            messages.appendChild(userMessageLi);
+
+            // Clear input
+            userInput.value = '';
+
+            // Send message to Dialogflow
+            console.log("Sending message to Dialogflow:", message);
+            sendToDialogflow(message);
+        }
+
+        function sendToDialogflow(message) {
+            fetch('http://localhost:3000/api/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fulfillmentText) {
+                    displayMessage(data.fulfillmentText);
+                } else {
+                    console.error("Dialogflow response does not contain fulfillment text.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+
+        // Function to display the message in the chat interface
+        function displayMessage(message) {
+            const botMessageLi = document.createElement('li');
+            botMessageLi.textContent = message;
+            botMessageLi.className = 'bot-message';
+            messages.appendChild(botMessageLi);
+
+            // Scroll to bottom
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Listen for Enter key press
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script> -->
+    <script src="script.js"></script>
+    <!-- <script>
+        const messages = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+    
+        function generateSessionId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+    
+        const sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
+    
+        function sendMessage() {
+            const message = userInput.value;
+            if (message.trim() === '') return;
+    
+            // Display user message
+            const userMessageLi = document.createElement('li');
+            userMessageLi.textContent = message;
+            userMessageLi.className = 'user-message';
+            messages.appendChild(userMessageLi);
+    
+            // Clear input
+            userInput.value = '';
+    
+            // Send message to Dialogflow
+            console.log("Sending message to Dialogflow:", message);
+            sendToDialogflow(message);
+        }
+    
+        function sendToDialogflow(message) {
+            fetch('http://localhost:3000/api/message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Received data:', data);  // Debugging log
+                if (data.fulfillmentText) {
+                    displayMessage(data.fulfillmentText);
+                } else {
+                    console.error("Dialogflow response does not contain fulfillment text.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+    
+        // Function to display the message in the chat interface
+        function displayMessage(message) {
+            const botMessageLi = document.createElement('li');
+            botMessageLi.textContent = message;
+            botMessageLi.className = 'bot-message';
+            messages.appendChild(botMessageLi);
+    
+            // Scroll to bottom
+            messages.scrollTop = messages.scrollHeight;
+        }
+    
+        // Listen for Enter key press
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script> -->
+    
+</body>
+</html>
