@@ -1,0 +1,128 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9EAEA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 400px;
+    height: 80vh;
+    background-color: #FFCDD2; 
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(180deg, #D32F2F, #C62828);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    list-style-type: none;
+    background: #FFF5F5; 
+}
+
+
+.user-message {
+    background-color: #FF8A80; 
+    color: white;
+    margin-left: auto;
+    text-align: right;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.bot-message {
+    background-color: #FFC1C1; 
+    color: #5D4037; 
+    margin-right: auto;
+    text-align: left;
+    border-radius: 20px;
+    max-width: 90%; 
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.input-box {
+    display: flex;
+    padding: 10px;
+    border-top: 2px solid #dddddd;
+}
+
+
+.input-box input, .input-box button {
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.input-box input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.input-box button {
+    background-color: #D32F2F; 
+    color: white;
+    width: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.input-box button:hover {
+    background-color: #B71C1C; 
+}
+
+
+/*nav buttons*/
+
+.navigation {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.navigation a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #B71C1C; 
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+.navigation a:hover {
+    background-color: #c12a2a;
+}

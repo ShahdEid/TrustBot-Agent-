@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Chat Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="header">Friendly Chat Bot 🤖</div>
+        <div class="messages" id="messages"></div>
+        <div class="input-box">
+            <input type="file" id="file-input" accept=".txt,.pdf">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+            <button id="start-record-btn" title="Start Voice Recognition">🎤</button>
+            <button id="stop-record-btn" title="Stop Voice Recognition">🛑</button>
+        </div>
+        <div class="navigation">
+            <a href="../user-VA-interface/index.html" class="btn btn-secondary">Back: Modal Interface</a>
+            <a href="../Homepage.html" class="btn btn-secondary">Home</a>
+            <a href="https://forms.gle/h1e8CWYQXo2AFtZN7" class="btn btn-primary">Take the Survey</a>
+            <div class="facebook-option">
+                <p>Want to interact with us on Facebook? <a href="https://www.facebook.com/profile.php?id=61564272440819" target="_blank">Click here</a>.</p>
+            </div>
+            
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
