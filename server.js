@@ -138,21 +138,108 @@ const fetchData = async (prompt) => {
 //openai api server integration function source: https://github.com/RajKKapadia/YouTube-Openai-Dialogflow-CX-ES-Python/blob/main/helper/openai_api.py
 
 // Dialogflow WEBHOOK endpoint
+// app.post('/dialogflow', async (req, res) => {
+//     let action = req.body.queryResult.action;
+//     let queryText = req.body.queryResult.queryText;
+
+//     if (action === 'input.unknown') {
+//         let apiResponse = await fetchData(queryText); // fetchData 
+//         if (apiResponse && apiResponse.choices) {
+//             res.json({ fulfillmentText: apiResponse.choices[0].message.content });
+//         } else {
+//             res.json({ fulfillmentText: "Sorry, I couldn't fetch a response." });
+//         }
+//     } else {
+//         res.json({ fulfillmentText: `No handler for the action ${action}.` });
+//     }
+// });
+
+
+// app.post('/dialogflow', async (req, res) => {
+//     let action = req.body.queryResult.action;
+//     let queryText = req.body.queryResult.queryText;
+
+//     if (action === 'input.unknown') {
+//         let apiResponse = await fetchData(queryText);  // Call OpenAI API with the user's query
+        
+//         if (apiResponse && apiResponse.choices) {
+//             let fulfillmentText = apiResponse.choices[0].message.content;
+//             console.log('Fulfillment Text:', fulfillmentText);
+//             res.json({ fulfillmentText: fulfillmentText });
+//         } else {
+//             console.error('No valid response from OpenAI API');
+//             res.json({ fulfillmentText: "Sorry, I couldn't fetch a response." });
+//         }
+//     } else {
+//         console.error(`No handler for the action ${action}`);
+//         res.json({ fulfillmentText: `No handler for the action ${action}.` });
+//     }
+// });
 app.post('/dialogflow', async (req, res) => {
     let action = req.body.queryResult.action;
     let queryText = req.body.queryResult.queryText;
 
+    // Handle the input.unknown action
     if (action === 'input.unknown') {
-        let apiResponse = await fetchData(queryText); // fetchData 
+        let apiResponse = await fetchData(queryText);  // Call OpenAI API with the user's query
+
         if (apiResponse && apiResponse.choices) {
-            res.json({ fulfillmentText: apiResponse.choices[0].message.content });
+            let fulfillmentText = apiResponse.choices[0].message.content;
+            console.log('Fulfillment Text:', fulfillmentText);
+            res.json({ fulfillmentText: fulfillmentText });
         } else {
+            console.error('No valid response from OpenAI API');
             res.json({ fulfillmentText: "Sorry, I couldn't fetch a response." });
         }
-    } else {
-        res.json({ fulfillmentText: `No handler for the action ${action}.` });
+        return;
+    }
+
+    // Handle location-based actions
+    const lat = req.body.queryResult.parameters.lat;
+    const long = req.body.queryResult.parameters.long;
+
+    if (!lat || !long) {
+        console.error('Latitude or Longitude not provided');
+        res.json({ fulfillmentText: "Sorry, I couldn't get your location. Please try again." });
+        return;
+    }
+
+    try {
+        if (action === 'find_cafe_action') {
+            console.log('Processing FindCafe Action');
+            const places = await fetchNearbyPlaces('Cafe', lat, long);
+            const responseText = places.length > 0 
+                ? `Here are some nearby cafes:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+                : "Sorry, I couldn't find any nearby cafes.";
+            res.json({ fulfillmentText: responseText });
+
+        } else if (action === 'find_gym_action') {
+            console.log('Processing FindGym Action');
+            const places = await fetchNearbyPlaces('Gym', lat, long);
+            const responseText = places.length > 0 
+                ? `Here are some nearby gyms:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+                : "Sorry, I couldn't find any nearby gyms.";
+            res.json({ fulfillmentText: responseText });
+
+        } else if (action === 'find_library_action') {
+            console.log('Processing FindLibrary Action');
+            const places = await fetchNearbyPlaces('Library', lat, long);
+            const responseText = places.length > 0 
+                ? `Here are some nearby libraries:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+                : "Sorry, I couldn't find any nearby libraries.";
+            res.json({ fulfillmentText: responseText });
+
+        } else {
+            console.error(`No handler for the action ${action}`);
+            res.json({ fulfillmentText: `No handler for the action ${action}.` });
+        }
+    } catch (error) {
+        console.error('Error processing action:', error);
+        res.json({ fulfillmentText: "An error occurred while processing your request. Please try again later." });
     }
 });
+
+
 
 // app.post('/dialogflow', async (req, res) => {
 //     let action = req.body.queryResult.action;
@@ -272,54 +359,54 @@ app.post('/dialogflow', async (req, res) => {
 //     }
 // });
 
-//revised app.post function 
-app.post('/dialogflow', async (req, res) => {
-    let action = req.body.queryResult.action;
+// //revised app.post function 
+// app.post('/dialogflow', async (req, res) => {
+//     let action = req.body.queryResult.action;
 
-    // Ensure parameters are being passed correctly
-    const lat = req.body.queryResult.parameters.lat;
-    const long = req.body.queryResult.parameters.long;
+//     // Ensure parameters are being passed correctly
+//     const lat = req.body.queryResult.parameters.lat;
+//     const long = req.body.queryResult.parameters.long;
 
-    if (!lat || !long) {
-        console.error('Latitude or Longitude not provided');
-        res.json({ fulfillmentText: "Sorry, I couldn't get your location. Please try again." });
-        return;
-    }
+//     if (!lat || !long) {
+//         console.error('Latitude or Longitude not provided');
+//         res.json({ fulfillmentText: "Sorry, I couldn't get your location. Please try again." });
+//         return;
+//     }
 
-    try {
-        if (action === 'find_cafe_action') {
-            console.log('Processing FindCafe Action');
-            const places = await fetchNearbyPlaces('Cafe', lat, long);
-            const responseText = places.length > 0 
-                ? `Here are some nearby cafes:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
-                : "Sorry, I couldn't find any nearby cafes.";
-            res.json({ fulfillmentText: responseText });
+//     try {
+//         if (action === 'find_cafe_action') {
+//             console.log('Processing FindCafe Action');
+//             const places = await fetchNearbyPlaces('Cafe', lat, long);
+//             const responseText = places.length > 0 
+//                 ? `Here are some nearby cafes:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+//                 : "Sorry, I couldn't find any nearby cafes.";
+//             res.json({ fulfillmentText: responseText });
 
-        } else if (action === 'find_gym_action') {
-            console.log('Processing FindGym Action');
-            const places = await fetchNearbyPlaces('Gym', lat, long);
-            const responseText = places.length > 0 
-                ? `Here are some nearby gyms:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
-                : "Sorry, I couldn't find any nearby gyms.";
-            res.json({ fulfillmentText: responseText });
+//         } else if (action === 'find_gym_action') {
+//             console.log('Processing FindGym Action');
+//             const places = await fetchNearbyPlaces('Gym', lat, long);
+//             const responseText = places.length > 0 
+//                 ? `Here are some nearby gyms:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+//                 : "Sorry, I couldn't find any nearby gyms.";
+//             res.json({ fulfillmentText: responseText });
 
-        } else if (action === 'find_library_action') {
-            console.log('Processing FindLibrary Action');
-            const places = await fetchNearbyPlaces('Library', lat, long);
-            const responseText = places.length > 0 
-                ? `Here are some nearby libraries:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
-                : "Sorry, I couldn't find any nearby libraries.";
-            res.json({ fulfillmentText: responseText });
+//         } else if (action === 'find_library_action') {
+//             console.log('Processing FindLibrary Action');
+//             const places = await fetchNearbyPlaces('Library', lat, long);
+//             const responseText = places.length > 0 
+//                 ? `Here are some nearby libraries:\n${places.map(place => `${place.name} - ${place.vicinity}`).join('\n')}`
+//                 : "Sorry, I couldn't find any nearby libraries.";
+//             res.json({ fulfillmentText: responseText });
 
-        } else {
-            console.error(`No handler for the action ${action}`);
-            res.json({ fulfillmentText: `No handler for the action ${action}.` });
-        }
-    } catch (error) {
-        console.error('Error processing action:', error);
-        res.json({ fulfillmentText: "An error occurred while processing your request. Please try again later." });
-    }
-});
+//         } else {
+//             console.error(`No handler for the action ${action}`);
+//             res.json({ fulfillmentText: `No handler for the action ${action}.` });
+//         }
+//     } catch (error) {
+//         console.error('Error processing action:', error);
+//         res.json({ fulfillmentText: "An error occurred while processing your request. Please try again later." });
+//     }
+// });
 
 
 // API endpoint to receive location from frontend
@@ -370,7 +457,6 @@ app.post('/api/message', async (req, res) => {
             session: `projects/${projectId}/agent/sessions/${sessionId}`,
             requestBody: request
         });
-        console.log(response);
 
         const result = response.data.queryResult.fulfillmentText;
        
