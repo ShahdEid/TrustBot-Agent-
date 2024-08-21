@@ -35,7 +35,7 @@ function getLocationAndSend(type) {
             const lat = position.coords.latitude;
             const long = position.coords.longitude;
 
-            fetch('http://localhost:3000/api/location', {
+            fetch(`${window.location.origin}/api/location`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ function getLocationAndSend(type) {
 }
 
 function sendToDialogflow(message) {
-    fetch('http://localhost:3000/api/message', {
+    fetch(`${window.location.origin}/api/message`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -120,7 +120,7 @@
         }
 
         function sendToDialogflow(message) {
-            fetch('http://localhost:3000/api/message', {
+            fetch(`${window.location.origin}/api/message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -148,7 +148,7 @@
             });
         }
         // Assuming you are using fetch to send the user input to the server
-fetch('http://localhost:3000/api/message', {
+fetch(`${window.location.origin}/api/message`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
@@ -306,7 +306,7 @@ function displayMessage(message) {
         }
 
         function sendToDialogflow(message) {
-            fetch('http://localhost:3000/api/message', {
+            fetch(`${window.location.origin}/api/message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -379,7 +379,7 @@ function displayMessage(message) {
         }
     
         function sendToDialogflow(message) {
-            fetch('http://localhost:3000/api/message', {
+            fetch(`${window.location.origin}/api/message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

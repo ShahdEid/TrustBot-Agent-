@@ -8,7 +8,7 @@ function getLocationAndSend(type) {
             const lat = position.coords.latitude;
             const long = position.coords.longitude;
 
-            fetch('http://localhost:3000/api/location', {
+            fetch(`${window.location.origin}/api/location`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ function sendMessage() {
 
 function sendTextMessage(message) {
     console.log("Sending message to server:", message);
-    fetch('http://localhost:3000/api/message', {
+    fetch(`${window.location.origin}/api/message`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message })
@@ -96,7 +96,7 @@ function uploadFile(file) {
     formData.append('file', file);
 
     console.log("Uploading file:", file.name);
-    fetch('http://localhost:3000/upload', {
+    fetch(`${window.location.origin}/upload`, {
         method: 'POST',
         body: formData
     })

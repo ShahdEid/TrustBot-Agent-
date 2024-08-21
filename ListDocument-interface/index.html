@@ -124,7 +124,7 @@
 
         function sendTextMessage(message) {
             console.log("Sending message to server:", message);
-            fetch('http://localhost:3000/api/message', {
+            fetch(`${window.location.origin}/api/message`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message })
@@ -148,7 +148,7 @@
     formData.append('file', file);
 
     console.log("Uploading file:", file.name);
-    fetch('http://localhost:3000/upload', {
+    fetch(`${window.location.origin}/upload`, {
         method: 'POST',
         body: formData
     })
