@@ -1,0 +1,187 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #F9EAEA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 400px;
+    height: 80vh;
+    background-color: #FFCDD2; 
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(180deg, #D32F2F, #C62828);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    list-style-type: none;
+    background: #FFF5F5; 
+}
+
+
+.user-message {
+    background-color: #FF8A80; 
+    color: white;
+    margin-left: auto;
+    text-align: right;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.bot-message {
+    background-color: #FFC1C1; 
+    color: #5D4037; 
+    margin-right: auto;
+    text-align: left;
+    border-radius: 20px;
+    max-width: 90%; 
+    word-wrap: break-word;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.input-box {
+    display: flex;
+    padding: 10px;
+    border-top: 2px solid #dddddd;
+}
+
+
+.input-box input, .input-box button {
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    margin: 5px;
+}
+
+.input-box input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.input-box button {
+    background-color: #D32F2F; 
+    color: white;
+    width: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.input-box button:hover {
+    background-color: #B71C1C; 
+}
+
+.about-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #B71C1C !important;
+    color: white !important;
+    padding: 10px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+}
+
+.about-btn:hover {
+    background-color: #FFC1C1 !important;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.4); 
+    justify-content: center;
+    align-items: center;
+    display: flex; /* Center the modal */
+}
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 600px; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+/*nav buttons*/
+
+.navigation {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.navigation a {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    background-color: #B71C1C; 
+    color: white;
+    font-size: 14px;
+    text-align: center;
+}
+
+.navigation a:hover {
+    background-color: #c12a2a;
+}

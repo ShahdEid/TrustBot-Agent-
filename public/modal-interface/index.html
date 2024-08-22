@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon_io/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon_io/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Trust Bot Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="open-modal" onclick="openModal()">Open Modal for Chat</button>
+    
+    <div id="myModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <button id="aboutBtn" class="btn btn-primary">About</button>
+
+            <h3>Welcome to TrustBot!</h3>
+            <p>Your reliable assistant for all inquiries. How can I help you today?</p>
+            
+            <!--  Chat Interface -->
+            <div class="chat-container">
+                <div id="messages" class="messages"></div>
+                <div class="input-box">
+                    <input type="file" id="file-input" accept=".txt,.pdf">
+                    <input type="text" id="user-input" placeholder="Type your message here...">
+                    <button id="send-btn" onclick="sendMessage()">Send</button>
+                    <button id="start-record-btn" title="Start Voice Recognition">🎤</button>
+                    <button id="stop-record-btn" title="Stop Voice Recognition">🛑</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <a href="../ListDocument-interface/index.html" class="btn btn-secondary">Back: List Interface</a>
+        <a href="../Homepage.html" class="btn btn-secondary">Home</a>
+        <a href="../user-VA-interface/index.html" class="btn btn-primary">Next: Red Voice Assited Interface</a>
+    </div>
+    
+      <!-- The Modal -->
+      <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+              <!-- Scenarios Section -->
+<section id="scenarios">
+    <h2>Testing Scenarios</h2>
+    <p>
+        To thoroughly assess TrustBot’s capabilities, we have designed a set of scenarios that simulate real-world interactions. These scenarios are categorised into three levels based on their complexity and the type of challenge they present: Red, Amber, and Green.
+    </p>
+    <p>
+        We encourage you to test each of these scenarios in all the interfaces provided. This approach will allow you to compare how TrustBot performs in different environments and provide more accurate feedback in the survey.
+    </p>
+    <!-- Red Scenarios -->
+    <div class="scenario-section" id="red-scenarios">
+        <h3>🔴 Red Scenarios</h3>
+        <p>
+            Red scenarios are the most challenging, involving situations where the user may be in distress or facing a mental health crisis. These scenarios test TrustBot's ability to handle sensitive and emotionally charged situations.
+        </p>
+        <ul>
+            <li><strong>Scenario 1:</strong> Responding to statements like "I am stressed," "I don't feel well," or "I feel overwhelmed."</li>
+        </ul>
+    </div>
+
+    <!-- Amber Scenarios -->
+    <div class="scenario-section" id="amber-scenarios">
+        <h3>🟠 Amber Scenarios</h3>
+        <p>
+            Amber scenarios involve practical, everyday tasks where TrustBot needs to provide accurate and helpful information. These scenarios assess TrustBot’s functionality in situations requiring more than just straightforward answers.
+        </p>
+        <ul>
+            <li><strong>Scenario 1:</strong> Planning an event.</li>
+            <li><strong>Scenario 2:</strong> Finding the nearest gym, cafe, or library based on the user's location (e.g., "Find a gym," "Find a library," "Find a cafe").</li>
+        </ul>
+    </div>
+
+    <!-- Green Scenarios -->
+    <div class="scenario-section" id="green-scenarios">
+        <h3>🟢 Green Scenarios</h3>
+        <p>
+            Green scenarios are straightforward queries where TrustBot is expected to deliver quick and accurate responses. These scenarios help establish TrustBot's reliability in handling basic information requests.
+        </p>
+        <ul>
+            <li><strong>Scenario 1:</strong> Answering questions like "Who created you?", "What is an AI assistant?", or "Should I trust you?".</li>
+        </ul>
+    </div>
+</section>
+
+
+  
+    <script src="script.js"></script>
+</body>
+</html>

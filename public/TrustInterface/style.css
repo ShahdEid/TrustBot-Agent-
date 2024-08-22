@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 420px;
+    height: 120vh; 
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e0e0e0; 
+}
+
+.header {
+    background: linear-gradient(135deg, #1e88e5, #1565c0);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    list-style-type: none;
+    background: #f7fbff;
+}
+
+.messages div {
+    padding: 14px 20px; 
+    border-radius: 25px;
+    margin: 16px 0; 
+    max-width: 75%; 
+    word-wrap: break-word;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.user-message {
+    background-color: #e0f7fa; /* Light teal */
+    color: #00796b;
+    margin-left: auto;
+    text-align: right;
+    animation-name: slideInRight;
+    box-shadow: 0 3px 8px rgba(0, 121, 107, 0.2); /* Subtle shadow for user message */
+}
+
+.bot-message {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    margin-right: auto;
+    text-align: left;
+    animation-name: slideInLeft;
+    box-shadow: 0 3px 8px rgba(21, 101, 192, 0.2);
+}
+
+.input-box {
+    display: flex;
+    padding: 15px;
+    border-top: 2px solid #e0e0e0;
+    flex-direction: column;
+    background-color: #f7fbff;
+}
+
+.input-box input[type="text"], .input-box input[type="file"] {
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 30px;
+    margin: 8px 0;
+    flex-grow: 1;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+.input-box button {
+    background-color: #1e88e5;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Button shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-box button:hover {
+    background-color: #1565c0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px; /* Adjust padding to ensure buttons fit within the container */
+    background-color: transparent; 
+    width: 100%; /* Ensure navigation spans the full width */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.navigation a {
+    text-decoration: none;
+    padding: 8px 14px; /* Smaller padding */
+    border-radius: 25px;
+    background-color: #1565c0;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    flex-grow: 1; /* Ensure buttons take up equal space */
+    margin: 0 5px; /* Add margin to space out buttons */
+}
+
+.navigation a:hover {
+    background-color: #0d47a1;
+}
+
+.facebook-option {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.facebook-option p {
+    margin: 0;
+}
+
+.facebook-option a {
+    color: #1565c0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.facebook-option a:hover {
+    text-decoration: underline;
+}
+.about-btn {
+    position: absolute;
+    top: 10px; /* Adjust this value to fine-tune the vertical positioning */
+    right: 10px; /* Move to the right side */
+    background-color: rgb(118, 188, 232); /* Use a noticeable color, e.g., orange */
+    color: #ffffff; /* White text color for contrast */
+    padding: 8px 15px; /* Slightly larger padding for better visibility */
+    border: none; /* Remove borders */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold; /* Make the text bold */
+    border-radius: 5px; /* Rounded corners for a button-like appearance */
+    z-index: 1000; /* Ensure it's always on top */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+}
+
+.about-btn:hover {
+    background-color: rgb(118, 188, 232); /* Darken the background color on hover */
+    text-decoration: none; /* Keep it simple on hover */
+}
+
+.about-btn:hover {
+    text-decoration: underline; /* Add underline on hover for subtle emphasis */
+}
+
+
+.about-btn:hover {
+    background-color: #004182; /* Use your existing hover color */
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    overflow-y: auto; /* Ensure content is scrollable */
+    max-height: 90vh; /* Adjust height to fit within the viewport */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon_io/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon_io/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teal TrustBot Interface</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="chat-container">
+        <button id="aboutBtn" class="about-btn">About</button> 
+   
+        <div class="header">Chatbot with Document Upload</div>
+        <ul class="messages" id="messages"></ul>
+        <div class="input-box">
+            <input type="file" id="file-input" accept=".txt,.pdf">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <div class="navigation">
+            <a href="../Homepage.html" class="btn btn-secondary">Home</a>
+            <a href="../modal-interface/index.html" class="btn btn-primary">Next: Modal Interface</a>
+            <div id="aboutModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-body">
+                      <!-- Scenarios Section -->
+        <section id="scenarios">
+            <h2>Testing Scenarios</h2>
+            <p>
+                To thoroughly assess TrustBot’s capabilities, we have designed a set of scenarios that simulate real-world interactions. These scenarios are categorised into three levels based on their complexity and the type of challenge they present: Red, Amber, and Green.
+            </p>
+            <p>
+                We encourage you to test each of these scenarios in all the interfaces provided. This approach will allow you to compare how TrustBot performs in different environments and provide more accurate feedback in the survey.
+            </p>
+            <!-- Red Scenarios -->
+            <div class="scenario-section" id="red-scenarios">
+                <h3>🔴 Red Scenarios</h3>
+                <p>
+                    Red scenarios are the most challenging, involving situations where the user may be in distress or facing a mental health crisis. These scenarios test TrustBot's ability to handle sensitive and emotionally charged situations.
+                </p>
+                <ul>
+                    <li><strong>Scenario 1:</strong> Responding to statements like "I am stressed," "I don't feel well," or "I feel overwhelmed."</li>
+                </ul>
+            </div>
+
+            <!-- Amber Scenarios -->
+            <div class="scenario-section" id="amber-scenarios">
+                <h3>🟠 Amber Scenarios</h3>
+                <p>
+                    Amber scenarios involve practical, everyday tasks where TrustBot needs to provide accurate and helpful information. These scenarios assess TrustBot’s functionality in situations requiring more than just straightforward answers.
+                </p>
+                <ul>
+                    <li><strong>Scenario 1:</strong> Planning an event.</li>
+                    <li><strong>Scenario 2:</strong> Finding the nearest gym, cafe, or library based on the user's location (e.g., "Find a gym," "Find a library," "Find a cafe").</li>
+                </ul>
+            </div>
+
+            <!-- Green Scenarios -->
+            <div class="scenario-section" id="green-scenarios">
+                <h3>🟢 Green Scenarios</h3>
+                <p>
+                    Green scenarios are straightforward queries where TrustBot is expected to deliver quick and accurate responses. These scenarios help establish TrustBot's reliability in handling basic information requests.
+                </p>
+                <ul>
+                    <li><strong>Scenario 1:</strong> Answering questions like "Who created you?", "What is an AI assistant?", or "Should I trust you?".</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2>Features to Explore</h2>
+            <p>
+                TrustBot includes several features designed to enhance user experience:
+            </p>
+            <ul>
+                <li><strong>File Upload:</strong> Users can upload documents for text extraction. Please note that there is a file size limit, so large documents may not be processed.</li>
+                <li><strong>Voice Assistance:</strong> TrustBot supports voice input and can respond using different voices, including male and female options. If you experience difficulty hearing these differences, try adjusting your browser settings or switching to another browser.</li>
+            </ul>
+        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const messages = document.getElementById('messages');
+        const userInput = document.getElementById('user-input');
+        const fileInput = document.getElementById('file-input');
+        aboutBtn.onclick = function () {
+            aboutModal.style.display = "block";
+        }
+
+        closeModal.onclick = function () {
+            aboutModal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == aboutModal) {
+                aboutModal.style.display = "none";
+            }
+        }
+        function generateSessionId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const sessionId = generateSessionId();
+        console.log("Generated session ID:", sessionId);
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            const file = fileInput.files[0];
+
+            if (message) {
+                displayMessage(` ${message}`, 'user-message');
+                sendTextMessage(message);
+                userInput.value = '';
+            }
+
+            if (file) {
+                displayMessage(`You uploaded a file: ${file.name}`, 'user-message');
+                uploadFile(file);
+                fileInput.value = ''; // Clear the file input
+            }
+        }
+
+        function sendTextMessage(message) {
+            console.log("Sending message to server:", message);
+            fetch('http://localhost:3000/api/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.fulfillmentText) {
+                    displayMessage(` ${data.fulfillmentText}`, 'bot-message');
+                } else {
+                    console.error("Server response does not contain fulfillment text.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                displayMessage(`Error: ${error.message}`, 'bot-message');
+            });
+        }
+
+        function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log("Uploading file:", file.name);
+    fetch('http://localhost:3000/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("File processed:", data);
+        displayMessage(` ${data.message}`, 'bot-message'); //  confirmation
+
+        //if there is extracted text and display it
+        if (data.text) {
+            displayMessage(`Extracted Text: <strong>${data.text}</strong>`, 'bot-message'); // Display extracted text
+            displayMessage(" Document processed. Let me know if you need anything else!", 'bot-message');
+        }
+    })
+    .catch(error => {
+        console.error('Upload error:', error);
+        displayMessage(`Upload error: ${error.message}`, 'bot-message');
+    });
+}
+
+
+function displayMessage(text, className) {
+    const messageLi = document.createElement('li');
+    messageLi.innerHTML = text;  // Use innerHTML to render HTML content
+    messageLi.className = className;
+    messages.appendChild(messageLi);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+        // Listen for Enter key press
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+     
+</body>
+</html>
